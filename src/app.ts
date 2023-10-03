@@ -1,8 +1,8 @@
 import { Elysia } from "elysia";
 import { swagger } from "@elysiajs/swagger";
 import { cors } from "@elysiajs/cors";
-import { bearer } from "@elysiajs/bearer";
 import { Routes } from "./utils/interfaces";
+import { toErrorResponse, toResponse } from "./utils/utils";
 
 export default class App {
   public app: Elysia;
@@ -27,8 +27,6 @@ export default class App {
   private usePlugins() {
     this.app.use(cors());
 
-    this.app.use(bearer());
-
     this.app.use(
       swagger({
         documentation: {
@@ -45,14 +43,16 @@ export default class App {
   private registerHooks() {
     this.app.onStart(() => {
       console.log(
-        `🦊 Elysia is running at ${this.app.server?.hostname}:${this.app.server?.port}. Environment: ${this.env}`
+        `bUnified is running at ${this.app.server?.hostname}:${this.app.server?.port}. Environment: ${this.env}`
       );
     });
 
-    this.app.onResponse((response) => {});
+    this.app.onAfterHandle((context) => {
+      context.response = toResponse(context.response);
+    });
 
     this.app.onError((context) => {
-      console.error(`Error. Context: ${context}`);
+      return toErrorResponse(context.error);
     });
   }
 
@@ -62,7 +62,7 @@ export default class App {
     });
   }
 
-  public async listen() {
+  public listen() {
     return this.app.listen(this.port);
   }
 

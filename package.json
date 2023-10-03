@@ -1,5 +1,5 @@
 {
-  "name": "elysia-server",
+  "name": "bunified",
   "version": "0.0.1",
   "scripts": {
     "test": "bun test --preload ./src/tests/setup/setup.ts",
@@ -7,18 +7,14 @@
     "start": "bun run src/server.ts"
   },
   "dependencies": {
-    "@elysiajs/bearer": "^0.7.0",
     "@elysiajs/cors": "^0.7.1",
     "@elysiajs/swagger": "^0.7.3",
-    "drizzle-orm": "^0.28.6",
     "elysia": "latest",
     "postgres": "^3.3.5"
   },
   "devDependencies": {
-    "@types/supertest": "^2.0.13",
     "bun-types": "latest",
-    "drizzle-kit": "^0.19.13",
-    "supertest": "^6.3.3"
+    "prisma": "^5.3.1"
   },
   "module": "src/app.js"
 }
