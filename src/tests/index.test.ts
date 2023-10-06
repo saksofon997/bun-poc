@@ -9,6 +9,6 @@ describe("Health check", () => {
       .getRequestHandler(new Request("http://localhost/health"))
       .then((res) => res.text());
 
-    console.log(res);
+    expect(JSON.parse(res).data).toEqual("0.0.1 test");
   });
 });
