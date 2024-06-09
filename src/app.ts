@@ -1,8 +1,8 @@
 import { Elysia } from "elysia";
 import { swagger } from "@elysiajs/swagger";
 import { cors } from "@elysiajs/cors";
-import { Routes } from "./utils/interfaces";
-import { toErrorResponse, toResponse } from "./utils/utils";
+import { Routes } from "@/utils/interfaces";
+import { toErrorResponse, toResponse } from "@/utils/utils";
 
 export default class App {
   public app: Elysia;

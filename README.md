@@ -1,4 +1,6 @@
-# Elysia with Bun runtime
+# bUnified
+
+Meet new friends and feel safer when going to local events by checking in with anonymous avatars.
 
 ## Getting Started
 

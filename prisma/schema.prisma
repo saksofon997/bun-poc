@@ -1,8 +1,12 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
 generator client {
   provider = "prisma-client-js"
+}
+
+generator prismabox {
+  provider                    = "prismabox"
+  output                      = "../src/schemas"
+  typeboxImportVariableName   = "t"
+  typeboxImportDependencyName = "elysia"
 }
 
 datasource db {
@@ -10,30 +14,44 @@ datasource db {
   url      = env("DB_URL")
 }
 
+enum EventType {
+  CONCERT
+  MOVIE
+  STANDUP
+  OTHER
+}
+
 model Event {
-  id          String   @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
-  title       String   @db.VarChar(255)
+  id          String       @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  createdAt   DateTime     @default(now())
+  updatedAt   DateTime     @updatedAt
+  type        EventType    @default(OTHER)
+  title       String       @db.VarChar(255)
   description String?
+  image       String?
   date        DateTime
-  location    String   @db.VarChar(255)
+  location    String       @db.VarChar(255)
+  Attendance  Attendance[]
 }
 
 model Attendance {
   id        String   @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
-  userId    String
-  eventId   String
+  profile   Profile  @relation(fields: [profileId], references: [id])
+  event     Event    @relation(fields: [eventId], references: [id])
+  profileId String   @db.Uuid
+  eventId   String   @db.Uuid
 }
 
 model Profile {
-  id     String  @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
-  name   String?
-  bio    String?
-  user   User    @relation(fields: [userId], references: [id])
-  userId String  @unique
+  id         String       @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  name       String?
+  bio        String?
+  image      String?
+  user       User         @relation(fields: [userId], references: [id])
+  userId     String       @unique @db.Uuid
+  Attendance Attendance[]
 }
 
 model User {

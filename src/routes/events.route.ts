@@ -1,7 +1,8 @@
 import Router from "elysia";
 
-import { Routes } from "../utils/interfaces";
-import EventsController from "../controllers/events.controller";
+import { Routes } from "@/utils/interfaces";
+import EventsController from "@/controllers/events.controller";
+import { GetEventDTO, GetEventsDTO } from "@/dtos/events.dto";
 
 export default class EventsRoute implements Routes {
   public path = "/events";
@@ -13,6 +14,15 @@ export default class EventsRoute implements Routes {
   }
 
   private initializeRoutes() {
-    this.router.get(`${this.path}`, this.eventsController.getEvents);
+    this.router.get(
+      `${this.path}`,
+      this.eventsController.getEvents,
+      GetEventsDTO
+    );
+    this.router.get(
+      `${this.path}/:id`,
+      this.eventsController.getEvent,
+      GetEventDTO
+    );
   }
 }

@@ -1,3 +1,8 @@
+import {
+  PrismaClientKnownRequestError,
+  PrismaClientValidationError,
+} from "@prisma/client/runtime/library";
+
 export const isEmpty = (value: string | number | object | boolean): boolean => {
   if (value === null) {
     return true;
@@ -38,5 +43,11 @@ export const toResponse = (object: unknown): Object => {
 };
 
 export const toErrorResponse = (object: any): Object => {
-  return { error: object.message };
+  if (object instanceof PrismaClientValidationError) {
+    return { error: JSON.parse(object.message).message, code: 400 };
+  } else if (object instanceof PrismaClientKnownRequestError) {
+    return { error: object.message, code: 500 };
+  } else {
+    return { error: object, code: 500 };
+  }
 };

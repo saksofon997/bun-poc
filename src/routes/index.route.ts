@@ -1,7 +1,7 @@
 import Router from "elysia";
 
-import { Routes } from "../utils/interfaces";
-import IndexController from "../controllers/index.controller";
+import { Routes } from "@/utils/interfaces";
+import IndexController from "@/controllers/index.controller";
 
 export default class IndexRoute implements Routes {
   public path = "/health";
