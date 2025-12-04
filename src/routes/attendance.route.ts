@@ -19,12 +19,12 @@ export default class AttendanceRoute implements Routes {
   private initializeRoutes() {
     this.router.post(
       `${this.path}`,
-      this.attendanceController.postAttendance,
+      this.attendanceController.postAttendance.bind(this.attendanceController) as any,
       PostAttendanceDTO
     );
     this.router.get(
       `${this.path}/:id`,
-      this.attendanceController.getEventAttendance,
+      this.attendanceController.getEventAttendance.bind(this.attendanceController) as any,
       GetEventAttendanceDTO
     );
   }

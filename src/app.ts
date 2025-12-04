@@ -47,12 +47,32 @@ export default class App {
       );
     });
 
-    this.app.onAfterHandle((context) => {
-      context.response = toResponse(context.response);
+    this.app.mapResponse(({ response, set }) => {
+      const isJson = typeof response === "object";
+
+      const textResponse =
+        typeof response === "object"
+          ? JSON.stringify(toResponse(response))
+          : (response?.toString() ?? "");
+
+      set.headers["Content-Encoding"] = "gzip";
+
+      return new Response(Bun.gzipSync(textResponse), {
+        headers: {
+          "Content-Type": `${
+            isJson ? "application/json" : "text/plain"
+          }; charset=utf-8`,
+        },
+      });
     });
 
     this.app.onError((context) => {
       return toErrorResponse(context.error);
+    });
+
+    this.app.onBeforeHandle(() => {
+      // Authentication
+      console.log("Authentication...");
     });
   }
 

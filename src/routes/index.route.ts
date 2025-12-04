@@ -13,6 +13,6 @@ export default class IndexRoute implements Routes {
   }
 
   private initializeRoutes() {
-    this.router.get(`${this.path}`, this.indexController.getIndex);
+    this.router.get(`${this.path}`, this.indexController.getIndex.bind(this.indexController) as any);
   }
 }

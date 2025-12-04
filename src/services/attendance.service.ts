@@ -1,15 +1,19 @@
-import { PrismaClient } from "@prisma/client";
+import { db } from "@/database/db";
 
-const prisma = new PrismaClient();
-
-export async function postAttendance(requestData) {
-  return await prisma.attendance.create({
-    data: requestData,
+export async function postAttendance(requestData: {
+  profileId: string;
+  eventId: string;
+}) {
+  return await db.attendance.create({
+    data: {
+      profileId: requestData.profileId,
+      eventId: requestData.eventId,
+    },
   });
 }
 
 export async function getEventAttendanceByEventId(eventId: string) {
-  return await prisma.attendance.findFirstOrThrow({
+  return await db.attendance.findFirstOrThrow({
     where: {
       eventId,
     },

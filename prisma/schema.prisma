@@ -1,5 +1,5 @@
 generator client {
-  provider = "prisma-client-js"
+  provider = "prisma-client"
 }
 
 generator prismabox {
@@ -11,13 +11,16 @@ generator prismabox {
 
 datasource db {
   provider = "postgresql"
-  url      = env("DB_URL")
 }
 
 enum EventType {
   CONCERT
   MOVIE
   STANDUP
+  EXHIBITION
+  FESTIVAL
+  CONFERENCE
+  WORKSHOP
   OTHER
 }
 

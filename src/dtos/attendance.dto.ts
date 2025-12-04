@@ -1,4 +1,4 @@
-import { t } from "elysia";
+import { Static, t } from "elysia";
 import { Event } from "@schemas/Event";
 
 export const PostAttendanceDTO = {
@@ -27,3 +27,5 @@ export const GetEventAttendanceDTO = {
     204: t.Object({ data: t.Array(Event) }),
   },
 };
+
+export type PostAttendanceInput = Static<typeof PostAttendanceDTO.body>;

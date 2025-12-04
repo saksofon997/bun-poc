@@ -3,18 +3,24 @@ import {
   getEventAttendanceByEventId,
   postAttendance,
 } from "@/services/attendance.service";
-import { Prisma } from "@prisma/client";
+import {
+  PostAttendanceInput,
+} from "@/dtos/attendance.dto";
 
 export default class AttendanceController {
-  public postAttendance = async (context: Context) => {
-    const requestData = context.body as Prisma.AttendanceCreateInput;
+  public async postAttendance(context: Context) {
+    const requestData: PostAttendanceInput = context.body as PostAttendanceInput;
 
     await postAttendance(requestData);
 
     return true;
-  };
+  }
 
-  public getEventAttendance = async (context: Context) => {
-    return await getEventAttendanceByEventId(context.params["id"]);
-  };
+  public async getEventAttendance(
+    context: Context
+  ) {
+    const eventAttendance = await getEventAttendanceByEventId(context.params.id as string);
+
+    return eventAttendance;
+  }
 }

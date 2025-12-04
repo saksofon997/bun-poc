@@ -9,14 +9,17 @@
   "dependencies": {
     "@elysiajs/cors": "^0.7.2",
     "@elysiajs/swagger": "^0.7.4",
-    "@prisma/client": "5.3.1",
+    "@prisma/adapter-pg": "^6.19.0",
+    "@prisma/client": "^7.1.0",
     "elysia": "latest",
-    "postgres": "^3.4.4"
+    "pg": "^8.16.3",
+    "postgres": "^3.4.7"
   },
   "devDependencies": {
+    "@types/pg": "^8.15.6",
     "bun-types": "latest",
-    "prisma": "^5.15.0",
-    "prismabox": "^1.0.2"
+    "prisma": "^7.1.0",
+    "prismabox": "^1.1.25"
   },
-  "module": "src/app.js"
+  "module": "src/app.ts"
 }

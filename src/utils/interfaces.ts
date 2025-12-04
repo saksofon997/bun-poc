@@ -1,4 +1,4 @@
-import Router from "elysia";
+import Router, { Context, Static, TSchema } from "elysia";
 
 export interface Routes {
   path?: string;

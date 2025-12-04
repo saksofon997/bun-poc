@@ -1,35 +1,9 @@
-import {
-  PrismaClientKnownRequestError,
-  PrismaClientValidationError,
-} from "@prisma/client/runtime/library";
-
-export const isEmpty = (value: string | number | object | boolean): boolean => {
-  if (value === null) {
-    return true;
-  } else if (typeof value !== "number" && value === "") {
-    return true;
-  } else if (typeof value === "undefined" || value === undefined) {
-    return true;
-  } else if (
-    value !== null &&
-    typeof value === "object" &&
-    !Object.keys(value).length
-  ) {
-    return true;
-  } else if (
-    typeof value === "boolean" &&
-    (value === undefined || value === null)
-  ) {
-    return true;
-  } else {
-    return false;
-  }
-};
+import { PrismaClientKnownRequestError, PrismaClientValidationError } from "@prisma/client/runtime/client";
 
 export const toResponse = (object: unknown): Object => {
   if (Array.isArray(object)) {
     return { data: object };
-  } else if (isEmpty(object as any)) {
+  } else if (object === null || object === undefined || object === "" || Object.keys(object).length === 0) {
     return { data: null };
   } else if (
     typeof object === "string" ||

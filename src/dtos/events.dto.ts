@@ -27,3 +27,16 @@ export const GetEventDTO = {
     204: t.Object({ data: t.Array(Event) }),
   },
 };
+
+export const GetEventsByFriendDTO = {
+  params: t.Object({
+    id: t.String({ format: "uuid" }),
+  }),
+  detail: {
+    summary: "Get event by ID.",
+    tags: ["events"],
+  },
+  response: {
+    204: t.Object({ data: t.Array(Event) }),
+  },
+};
